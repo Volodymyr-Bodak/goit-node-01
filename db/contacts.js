@@ -45,4 +45,45 @@ async function addContact(name, email, phone) {
   return newContact;
 }
 
-export { listContacts, getContactById, removeContact, addContact };
+
+function invokeAction({ action, id, name, email, phone }) {
+  console.log('Action:', action);
+  switch (action) {
+    case 'list':
+      console.log('Listing contacts:');
+      listContacts().then((contactsList) => {
+        console.log(contactsList);
+      });
+      break;
+
+    case 'get':
+      console.log('Getting contact by ID:', id);
+      if (id) {
+        getContactById(id)
+          .then((contact) => {
+            if (contact) {
+              console.log('Contact:', contact);
+            } else throw Error(`No such contact with ${id}`);
+          })
+          .catch((error) => console.error('Error getting contact:', error.message));
+      } else {
+        console.log('Please provide a contact ID using the --id option.');
+      }
+      break;
+
+    case 'add':
+      console.log('Adding contact:', name, email, phone);
+      addContact(name, email, phone);
+      break;
+
+    case 'remove':
+      console.log('Removing contact by ID:', id);
+      removeContact(id);
+      break;
+
+    default:
+      console.warn('\x1B[31m Unknown action type!');
+  }
+}
+
+export { listContacts, getContactById, removeContact, addContact, invokeAction };
