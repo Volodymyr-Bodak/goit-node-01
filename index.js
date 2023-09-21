@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { listContacts, getContactById, removeContact, addContact, invokeAction } from './db/contacts.js';
+import { listContacts, getContactById, removeContact, addContact, invokeAction } from './contacts.js';
 
 const program = new Command();
 
